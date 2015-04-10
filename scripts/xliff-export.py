@@ -43,8 +43,13 @@ def export_xliff_file(file_node, export_path):
         for trans_unit_node in file_node.xpath("x:body/x:trans-unit", namespaces=NS):
             sources = trans_unit_node.xpath("x:source", namespaces=NS)
             targets = trans_unit_node.xpath("x:target", namespaces=NS)
+
             if len(sources) == 1 and len(targets) == 1:
-                line = u"\"%s\" = \"%s\";\n" % (sources[0].text, targets[0].text)
+                notes = trans_unit_node.xpath("x:note", namespaces=NS)
+                if len(notes) == 1:
+                    line = u"/* %s */\n" % notes[0].text
+                    fp.write(line.encode("utf8"))
+                line = u"\"%s\" = \"%s\";\n\n" % (sources[0].text, targets[0].text)
                 fp.write(line.encode("utf8"))
 
 if __name__ == "__main__":
