@@ -21,6 +21,7 @@ public func ==(lhs: ClientAndTabs, rhs: ClientAndTabs) -> Bool {
 
 public protocol RemoteClientsAndTabs {
     func getClientsAndTabs() -> Deferred<Result<[ClientAndTabs]>>
+    func insertOrUpdateTabsForClient(client: String, tabs: [RemoteTab]) -> Deferred<Result<Int>>
 }
 
 
@@ -86,6 +87,9 @@ public class MockRemoteClientsAndTabs: RemoteClientsAndTabs {
         self.clientsAndTabs = [ClientAndTabs(client: client1, tabs: [tab11, tab12]), ClientAndTabs(client: client2, tabs: [tab22, tab21])]
     }
 
+    public func insertOrUpdateTabsForClient(client: String, tabs: [RemoteTab]) -> Deferred<Result<Int>> {
+        return Deferred(value: Result(success: -1))
+    }
 
     public func getClientsAndTabs() -> Deferred<Result<[ClientAndTabs]>> {
         return Deferred(value: Result(success: self.clientsAndTabs))
