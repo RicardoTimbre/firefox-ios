@@ -7,3 +7,5 @@ mkdir imported-locales
 
 scripts/xliff-export.py ../firefox-ios-l10n imported-locales
 
+scripts/xliff-import.py Client.xcodeproj imported-locales
+
