@@ -36,4 +36,8 @@ extension String {
         }
         return false
     }
+
+    public func asURL() -> NSURL? {
+        return NSURL(string: self)
+    }
 }
